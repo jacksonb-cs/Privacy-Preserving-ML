@@ -19,7 +19,6 @@
     "url": "https://github.com/jacksonb-cs/Privacy-Preserving-ML/issues"
   },
   "homepage": "https://github.com/jacksonb-cs/Privacy-Preserving-ML#readme",
-  
   "devDependencies": {
     "chai": "^4.3.4"
   }
