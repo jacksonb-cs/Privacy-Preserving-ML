@@ -21,5 +21,6 @@
   "homepage": "https://github.com/jacksonb-cs/Privacy-Preserving-ML#readme",
   "devDependencies": {
     "chai": "^4.3.4"
-  }
+  },
+  "dependencies": {}
 }
