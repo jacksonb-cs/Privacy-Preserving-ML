@@ -21,7 +21,13 @@ contract ModelConfirmation {
 	 */
 	function mapProviderToModel(bytes32 _modelHash, address _cloudProvider) external {
 		// TO-DO: Enforce authorized model owners only
-		// TO-DO: Ensure duplicate confirmations do not occur
+
+		Confirmation[] memory mappedHashes = cloudProviderToModel[_cloudProvider];
+		// Revert the contract call upon a request with the same model hash as another
+		for (uint32 i = 0; i < mappedHashes.length; i++) {
+			require(mappedHashes[i].modelHash != _modelHash, "Duplicate requests forbidden.");
+		}
+
 		Confirmation memory confirmation = Confirmation(_modelHash, false);
 		cloudProviderToModel[_cloudProvider].push(confirmation);
 	}
