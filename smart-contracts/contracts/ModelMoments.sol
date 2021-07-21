@@ -14,13 +14,17 @@ contract ModelMoments {
 	// Address of the winning cloud provider
 	address cloudProvider;
 
-	/// @notice Updates model information; Used by cloud provider with the most accurate model
-	/// @dev The below 'string' params should be converted to integers upon deserialisation...
-	/// @dev ...you can then use the respective constructors (EncryptedNumber, PaillierPublicKey)
-	/// @dev The above dev notices assume you are using Python-Paillier
-	/// @param _firstMoment Raw Paillier ciphertext of the model's first moment
-	/// @param _secondMoment Raw Paillier ciphertext of the model's second moment
-	/// @param _publicKeyN Part of the public key used for deserialising the raw encrypted moments
+	/**
+	 * @notice Updates model information; Used by cloud provider with the most accurate model
+	 *
+	 * @dev The below 'string' params should be converted to integers upon deserialisation.
+	 * You can then use the respective constructors (EncryptedNumber, PaillierPublicKey)
+	 * assuming you are using Python-Paillier.
+	 *
+	 * @param _firstMoment Raw Paillier ciphertext of the model's first moment
+	 * @param _secondMoment Raw Paillier ciphertext of the model's second moment
+	 * @param _publicKeyN Part of the public key used for deserialising the raw encrypted moments
+	 */
 	function update(
 		string calldata _firstMoment,
 		string calldata _secondMoment,
