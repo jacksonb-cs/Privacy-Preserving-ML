@@ -1,18 +1,16 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.0 <0.9.0;
+pragma solidity ^0.8.0;
+
+import "./Consensus.sol";
 
 /// @title Stores model moments of most successful model participant as well as their model hash
 /// @author Jackson Bullard
-contract ModelMoments {
+contract ModelMoments is Consensus {
 	// Raw ciphertext from Python-Paillier of model moments
 	string firstMoment;
 	string secondMoment;
 	// Public key's "n" (See Python-Paillier documentation)
 	string publicKeyN;
-	// Hash of most successful model of all cloud providers
-	bytes32 modelHash;
-	// Address of the winning cloud provider
-	address cloudProvider;
 
 	/**
 	 * @notice Updates model information; Used by cloud provider with the most accurate model
@@ -38,5 +36,9 @@ contract ModelMoments {
 		publicKeyN = _publicKeyN;
 		modelHash = _modelHash;
 		cloudProvider = msg.sender;
+	}
+
+	function retrieveModel() external view returns (string memory, string memory, string memory) {
+		return (firstMoment, secondMoment, publicKeyN);
 	}
 }

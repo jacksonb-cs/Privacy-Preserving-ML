@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.0 <0.9.0;
+pragma solidity ^0.8.0;
 
 /// @title Stores and compares hashes of encrypted models between model owners and cloud providers
 /// @author Jackson Bullard
