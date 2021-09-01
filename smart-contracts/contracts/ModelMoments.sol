@@ -35,7 +35,6 @@ contract ModelMoments is Consensus {
 		secondMoment = _secondMoment;
 		publicKeyN = _publicKeyN;
 		modelHash = _modelHash;
-		cloudProvider = msg.sender;
 	}
 
 	function retrieveModel() external view returns (string memory, string memory, string memory) {
