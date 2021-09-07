@@ -80,12 +80,12 @@ contract('ModelConfirmation', (accounts) => {
 			confirmationsArray = await modelConfirmation.getModelConfirmations(cloudProvider);
 		});
 
-		it('Should not create a new confirmation entirely and instead update existing', async () => {
+		it('Should not create a new Confirmation entirely and instead update existing', async () => {
 			let errMsg = 'A new confirmation was created!';
 			expect(confirmationsArray.length, errMsg).to.equal(1);
 		});
 
-		it('Should update the confirmation with the new model hash', async () => {
+		it('Should update the Confirmation with the new model hash', async () => {
 			let hash = await web3.utils.soliditySha3({t: 'bytes32', v: newModel});
 
 			let errMsg = 'Confirmation\'s hash was not appropriately updated!';
@@ -95,6 +95,17 @@ contract('ModelConfirmation', (accounts) => {
 		it('Should set the new model hash as NOT verified', async () => {
 			let errMsg = 'The new model hash is still set as verified!';
 			expect(confirmationsArray[0].verifiedHash, errMsg).to.equal(false);
+		});
+
+		it('Should still create a new Confirmation from a different model owner', async () => {
+			let hash = await web3.utils.soliditySha3({t: 'bytes32', v: 'CompletelyDifferentModel|/--'});
+			let secondModelOwner = accounts[2];
+
+			await modelConfirmation.mapProviderToModel(hash, cloudProvider, {from: secondModelOwner});
+			confirmationsArray = await modelConfirmation.getModelConfirmations(cloudProvider);
+
+			let errMsg = 'Two separate Confirmations should exist on-chain!';
+			expect(confirmationsArray.length, errMsg).to.equal(2);
 		});
 	});
 });

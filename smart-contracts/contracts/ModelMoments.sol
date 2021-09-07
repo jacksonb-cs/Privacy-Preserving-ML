@@ -19,8 +19,11 @@ contract ModelMoments is Ownable {
 	// Address of the cloud owner with the (potentially/verified) most accurate model
 	address winningCloudProvider;
 
+	// Keeps track of how many points every cloud provider has
+	mapping (address => int) cloudProviderPoints;
+
 	/**
-	 * @notice Updates model information; Used by cloud provider with the most accurate model
+	 * @notice Updates model information; Called by model owner
 	 *
 	 * @dev The below 'string' params should be converted to integers upon deserialisation.
 	 * You can then use the respective constructors (EncryptedNumber, PaillierPublicKey)
@@ -45,6 +48,7 @@ contract ModelMoments is Ownable {
 		publicKeyN = _publicKeyN;
 		modelHash = _modelHash;
 		winningCloudProvider = _cloudProvider;
+		cloudProviderPoints[_cloudProvider]++;
 	}
 
 	function retrieveModel() external view returns (string memory, string memory, string memory) {
