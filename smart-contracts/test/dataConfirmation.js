@@ -1,4 +1,6 @@
 const DataConfirmation = artifacts.require('DataConfirmation');
+//Using CommonJS modules because NodeJS doesn't understand ES6
+const utils = require('./utils');
 var expect = require('chai').expect;
 
 contract('DataConfirmation', (accounts) => {
@@ -57,6 +59,11 @@ contract('DataConfirmation', (accounts) => {
 
 			let errMsg = 'Hash should have been verified but was not!';
 			expect(confirmationsArray[0].verifiedHash, errMsg).to.equal(true);
+		});
+
+		it('Should throw an error upon attempting to map a cloud provider to a duplicate data hash', async () => {
+			// dataHash was already mapped once before, so the below request should throw an error
+			await utils.shouldThrow(dataConfirmation.mapProviderToData(dataHash, cloudProvider, {from: dataOwner}));
 		});
 	});
 });
