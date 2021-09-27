@@ -1,4 +1,8 @@
 smart-contracts/build/
 smart-contracts/node_modules/
 
+data/
+.venv/
+dask-worker-space/
+
 test.py
